@@ -1,0 +1,12 @@
+framework module SpeechKit {
+    umbrella header "SpeechKit.h"
+    
+    export *
+    module * { export * }
+    
+    link framework "CFNetwork"
+    link framework "Security"
+    link framework "AudioToolbox"
+    link framework "AVFoundation"
+    link "c++"
+}
