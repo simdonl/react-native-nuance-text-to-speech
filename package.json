@@ -1,0 +1,28 @@
+{
+  "name": "react-native-nuance-text-to-speech",
+  "version": "0.0.1",
+  "description": "A React Native Text-to-Speech library for Android and iOS with an option for Text-to-Speech as a Notification sound",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simdonl/react-native-speech-notification.git"
+  },
+  "keywords": [
+    "tts",
+    "nuance",
+    "text-to-speech",
+    "react",
+    "react-native",
+    "react-component",
+    "ios"
+  ],
+  "author": "SIMDO",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/simdonl/react-native-speech-notification/issues"
+  },
+  "homepage": "https://github.com/simdonl/react-native-speech-notification/#readme"
+}
