@@ -1,6 +1,6 @@
 {
   "name": "react-native-nuance-text-to-speech",
-  "version": "0.1",
+  "version": "0.1.1",
   "description": "A React Native Text-to-Speech library for iOS with the use of Nuance",
   "main": "index.js",
   "scripts": {
