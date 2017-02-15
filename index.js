@@ -1,9 +1,8 @@
 /*
-  React Native Speech Notification Plugin
-  https://github.com/kn4rfy/react-native-speech-notification
+  React Native Nuance Text To Speech
+  https://github.com/simdonl/react-native-nuance-text-to-speech
 
-  Created by FRANCIS KNARFY ELOPRE
-  https://github.com/kn4rfy
+  Created by SIMDO
 
   MIT License
 */
@@ -14,11 +13,11 @@ var { DeviceEventEmitter, NativeModules } = require('react-native');
 const RNNuanceTextToSpeech = NativeModules.NuanceTextToSpeech;
 
 var NuanceTextToSpeech = {
+  configure: function(params) {
+    RNNuanceTextToSpeech.configure(params);
+  },
   speak: function(params) {
     RNNuanceTextToSpeech.speak(params);
-  },
-  notify: function(params) {
-    RNNuanceTextToSpeech.notify(params);
   }
 };
 
