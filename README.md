@@ -20,10 +20,14 @@
 4. Run your project (`Cmd+R`)<
 
 ## Usage
+
+Create first an developer account 
+[over here](https://developer.nuance.com/public/index.php?task=register).
+
 ```javascript
 import NuanceTextToSpeech from 'react-native-nuance-text-to-speech';
 
-NuanceTextToSpeech.init({
+NuanceTextToSpeech.configure({
       appKey: '',
       appId: '',
       serverHost: '',
@@ -32,7 +36,12 @@ NuanceTextToSpeech.init({
     });
 
 NuanceTextToSpeech.speak({
-        message: 'Hello World!'
-      });
+      message: 'Hello World!',
+      voice: 'Xander'
+    });
 ```
+
+## Available Languages and voices
+You can checkout the available languages and voices 
+[over here](http://developer.nuance.com/public/index.php?task=supportedLanguages).
   
