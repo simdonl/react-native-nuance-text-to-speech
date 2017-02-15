@@ -14,11 +14,11 @@ var { DeviceEventEmitter, NativeModules } = require('react-native');
 const RNNuanceTextToSpeech = NativeModules.NuanceTextToSpeech;
 
 var NuanceTextToSpeech = {
+  configure: function(params) {
+    RNNuanceTextToSpeech.configure(params);
+  },
   speak: function(params) {
     RNNuanceTextToSpeech.speak(params);
-  },
-  notify: function(params) {
-    RNNuanceTextToSpeech.notify(params);
   }
 };
 

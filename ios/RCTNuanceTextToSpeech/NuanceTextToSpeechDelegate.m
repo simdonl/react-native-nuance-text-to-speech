@@ -12,12 +12,12 @@
 SKSession* _skSession;
 SKTransaction *_skTransaction;
 
-NSString* SKSAppKey = @"[>>>APPKEY<<<]";
-NSString* SKSAppId = @"[>>>APPID<<<]";
-NSString* SKSServerHost = @"[>>>SERVERHOST<<<]";
-NSString* SKSServerPort = @"[>>>SERVERPORT<<<]";
+NSString* SKSAppKey;
+NSString* SKSAppId;
+NSString* SKSServerHost;
+NSString* SKSServerPort;
 
-NSString* SKSLanguage = @"[>>>LANGUAGE<<<]";
+NSString* SKSLanguage;
 
 NSString* SKSServerUrl;
 
@@ -26,26 +26,40 @@ NSString* SKSNLUContextTag = @"!NLU_CONTEXT_TAG!";
 
 @implementation NuanceTextToSpeechDelegate
 
--(instancetype)init
+- (void)configure:(NSDictionary*)args
 {
-  self = [super init];
 	
-SKSServerUrl = [NSString stringWithFormat:@"nmsps://%@@%@:%@", SKSAppId, SKSServerHost, SKSServerPort];
-  return self;
+	SKSAppKey = [args objectForKey:@"appKey"];
+	SKSAppId = [args objectForKey:@"appId"];
+	SKSServerHost = [args objectForKey:@"serverHost"];
+	SKSServerPort = [args objectForKey:@"serverPort"];
+	SKSLanguage = [args objectForKey:@"language"];
+	
+	SKSServerUrl = [NSString stringWithFormat:@"nmsps://%@@%@:%@", SKSAppId, SKSServerHost, SKSServerPort];
+
 }
 
 - (void)speak:(NSDictionary*)args
 {
 
+if (!_skTransaction) {
+
   NSString *message = [args objectForKey:@"message"];
-  NSString *language = [args objectForKey:@"language"];
+  NSString *voice = [args objectForKey:@"voice"];
 	
 	_skSession = [[SKSession alloc] initWithURL:[NSURL URLWithString:SKSServerUrl] appToken:SKSAppKey];
 
 		// Start a TTS transaction
 		_skTransaction = [_skSession speakString:message
-									   withVoice:@"Xander"
+									   withVoice:voice
 										delegate:self];
+
+} else {
+	// Cancel the TTS transaction
+	[_skTransaction cancel];
+	
+	[self resetTransaction];
+}
 	
 	
 }
@@ -84,6 +98,7 @@ SKSServerUrl = [NSString stringWithFormat:@"nmsps://%@@%@:%@", SKSAppId, SKSServ
 
 - (void)transaction:(SKTransaction *)transaction didReceiveAudio:(SKAudio *)audio
 {
+	[self resetTransaction];
 }
 
 - (void)transaction:(SKTransaction *)transaction didFinishWithSuggestion:(NSString *)suggestion
@@ -97,6 +112,8 @@ SKSServerUrl = [NSString stringWithFormat:@"nmsps://%@@%@:%@", SKSAppId, SKSServ
 	
 	// Something went wrong. Check Configuration.mm to ensure that your settings are correct.
 	// The user could also be offline, so be sure to handle this case appropriately.
+
+	[self resetTransaction];
 	
 }
 
@@ -114,6 +131,11 @@ SKSServerUrl = [NSString stringWithFormat:@"nmsps://%@@%@:%@", SKSAppId, SKSServ
 	// The TTS Audio has finished playing.
 }
 
-
+- (void)resetTransaction
+{
+	[[NSOperationQueue mainQueue] addOperationWithBlock:^{
+		_skTransaction = nil;
+	}];
+}
 
 @end
