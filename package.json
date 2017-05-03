@@ -1,7 +1,7 @@
 {
   "name": "react-native-nuance-text-to-speech",
-  "version": "0.0.1",
-  "description": "A React Native Text-to-Speech library for iOS with the use of Nuance",
+  "version": "0.2.0",
+  "description": "A React Native Text-to-Speech library for iOS and Android with the use of Nuance",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,7 +17,8 @@
     "react",
     "react-native",
     "react-component",
-    "ios"
+    "ios",
+    "android"
   ],
   "author": "SIMDO",
   "license": "MIT",

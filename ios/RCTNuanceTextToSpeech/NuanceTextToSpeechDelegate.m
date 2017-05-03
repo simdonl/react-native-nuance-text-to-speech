@@ -41,8 +41,9 @@ NSString* SKSNLUContextTag = @"!NLU_CONTEXT_TAG!";
 
 - (void)speak:(NSDictionary*)args
 {
+
 if (!_skTransaction) {
-	
+
   NSString *message = [args objectForKey:@"message"];
   NSString *voice = [args objectForKey:@"voice"];
 	
@@ -52,13 +53,13 @@ if (!_skTransaction) {
 		_skTransaction = [_skSession speakString:message
 									   withVoice:voice
 										delegate:self];
+
 } else {
 	// Cancel the TTS transaction
 	[_skTransaction cancel];
 	
 	[self resetTransaction];
 }
-
 	
 	
 }
@@ -70,26 +71,35 @@ if (!_skTransaction) {
   }
 
   NSString *message = [args objectForKey:@"message"];
-  NSString *language = [args objectForKey:@"language"];
+  NSString *voice = [args objectForKey:@"voice"];
 
-  if (!language || (id)language == [NSNull null]) {
-    language = @"en-US";
-  }
-
+	
   UILocalNotification *notification = [[UILocalNotification alloc]init];
   [notification setAlertBody:message];
 
-	
-	
+if (!_skTransaction) {
 	_skSession = [[SKSession alloc] initWithURL:[NSURL URLWithString:SKSServerUrl] appToken:SKSAppKey];
 	
 	// Start a TTS transaction
-	_skTransaction = [_skSession speakString:message
-								   withVoice:@"Xander"
-									delegate:self];
+		_skTransaction = [_skSession speakString:message
+									   withVoice:voice
+										delegate:self];
+	
+	[[AVAudioSession sharedInstance] setActive:NO withOptions:0 error:nil];
+	[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionInterruptSpokenAudioAndMixWithOthers error:nil];
 
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     [[UIApplication sharedApplication] setScheduledLocalNotifications:[NSArray arrayWithObject:notification]];
+		
+	} else {
+		// Cancel the TTS transaction
+		[_skTransaction cancel];
+		
+		[self resetTransaction];
+	}
+
+
+
 }
 
 
@@ -97,7 +107,7 @@ if (!_skTransaction) {
 
 - (void)transaction:(SKTransaction *)transaction didReceiveAudio:(SKAudio *)audio
 {
-	    [self resetTransaction];
+	[self resetTransaction];
 }
 
 - (void)transaction:(SKTransaction *)transaction didFinishWithSuggestion:(NSString *)suggestion
@@ -109,10 +119,9 @@ if (!_skTransaction) {
 - (void)transaction:(SKTransaction *)transaction didFailWithError:(NSError *)error suggestion:(NSString *)suggestion
 {
 	
-	
 	// Something went wrong. Check Configuration.mm to ensure that your settings are correct.
 	// The user could also be offline, so be sure to handle this case appropriately.
-	
+
 	[self resetTransaction];
 	
 }
@@ -137,7 +146,5 @@ if (!_skTransaction) {
 		_skTransaction = nil;
 	}];
 }
-
-
 
 @end

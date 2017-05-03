@@ -27,10 +27,10 @@ RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(configure:(NSDictionary *)args)
 {
-	RCTLogInfo(@"RCTNuanceTextToSpeech #configure");
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		[nuanceTextToSpeechDelegate configure:args];
-	});
+  RCTLogInfo(@"RCTNuanceTextToSpeech #configure");
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    [nuanceTextToSpeechDelegate configure:args];
+  });
 }
 
 RCT_EXPORT_METHOD(speak:(NSDictionary *)args)

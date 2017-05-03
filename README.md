@@ -24,7 +24,6 @@
 Create first an developer account 
 [over here](https://developer.nuance.com/public/index.php?task=register).
 
-
 ```javascript
 import NuanceTextToSpeech from 'react-native-nuance-text-to-speech';
 
@@ -37,10 +36,12 @@ NuanceTextToSpeech.configure({
     });
 
 NuanceTextToSpeech.speak({
-        message: 'Hello World!',
-        voice: 'Xander'
-      });
+      message: 'Hello World!',
+      voice: 'Xander'
+    });
 ```
+
 ## Available Languages and voices
 You can checkout the available languages and voices 
 [over here](http://developer.nuance.com/public/index.php?task=supportedLanguages).
+  

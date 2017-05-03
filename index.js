@@ -1,8 +1,9 @@
 /*
-  React Native Nuance Text To Speech
-  https://github.com/simdonl/react-native-nuance-text-to-speech
+  React Native Speech Notification Plugin
+  https://github.com/simdonl/react-native-speech-notification
 
   Created by SIMDO
+  https://github.com/simdonl
 
   MIT License
 */
@@ -18,6 +19,9 @@ var NuanceTextToSpeech = {
   },
   speak: function(params) {
     RNNuanceTextToSpeech.speak(params);
+  },
+  notify: function(params) {
+    RNNuanceTextToSpeech.notify(params);
   }
 };
 
