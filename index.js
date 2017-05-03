@@ -1,5 +1,5 @@
 /*
-  React Native Speech Notification Plugin
+  React Native Nuance Text To Speech Plugin
   https://github.com/simdonl/react-native-speech-notification
 
   Created by SIMDO
